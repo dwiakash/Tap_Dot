@@ -17,6 +17,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text('Score: ${gameUser.count.toString()}'),
+      ),
       body: GestureDetector(
         onTapDown: (_) {
           if (!gameUser.gameOver) {
@@ -30,14 +33,26 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               left: gameUser.dotPosition.dx,
               top: gameUser.dotPosition.dy,
-              child: gameUser.gameOver
-                  ? Text('Game Over',
-                      style: TextStyle(fontSize: 30, color: Colors.red))
-                  : Dot(),
+              child: gameUser.gameOver ? SizedBox.shrink() : Dot(),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: gameUser.gameOver
+          ? GestureDetector(
+              onTap: () {
+                gameUser.startGame();
+              },
+              child: BottomAppBar(
+                color: Colors.black,
+                child: Text(
+                  'Game Over - Tap to Restart',
+                  style: TextStyle(fontSize: 30, color: Colors.red),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          : SizedBox.shrink(),
     );
   }
 }

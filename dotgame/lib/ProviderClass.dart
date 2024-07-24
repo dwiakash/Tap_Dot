@@ -6,6 +6,7 @@ class GameProvider extends ChangeNotifier {
   Offset dotPosition = Offset(100, 100);
   bool gameOver = false;
   Timer? _timer;
+  int count = 0;
 
   void startGame() {
     gameOver = false;
@@ -27,7 +28,7 @@ class GameProvider extends ChangeNotifier {
 
   void _startTimer() {
     _timer?.cancel();
-    _timer = Timer(Duration(seconds: 1), () {
+    _timer = Timer(Duration(seconds: 2), () {
       if (!gameOver) {
         endGame();
       }
@@ -35,6 +36,7 @@ class GameProvider extends ChangeNotifier {
   }
 
   void tapDot() {
+    count++;
     if (!gameOver) {
       dotPosition = Offset(
         Random().nextDouble() * 300,
